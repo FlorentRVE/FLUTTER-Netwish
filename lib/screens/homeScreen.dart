@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  String searchTerms = "b";
+  String searchTerms = " ";
 
   var myController = TextEditingController();
 
@@ -56,6 +56,7 @@ class HomeScreenState extends State<HomeScreen> {
   Future<dynamic> getPosts() async {
     var data = await Api().getMovies(searchTerms);
     var post = jsonDecode(data);
+    print(post);
 
     return post;
   }
@@ -119,7 +120,8 @@ class HomeScreenState extends State<HomeScreen> {
                               {context.go('/movie?id=${posts[i]["id"]}')},
                           child: Post(
                               note: posts[i]["vote_average"],
-                              postImage: posts[i]["poster_path"],
+                              postImage: posts[i]["poster_path"] ??
+                                  'https://via.placeholder.com/150',
                               genre: posts[i]["genre_ids"]),
                         ),
                     ],

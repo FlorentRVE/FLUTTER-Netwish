@@ -29,7 +29,8 @@ class MovieScreenState extends State<MovieScreen> {
       backgroundColor: const Color.fromARGB(255, 37, 36, 36),
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color.fromARGB(255, 255, 255, 255)),
+          icon:
+              Icon(Icons.arrow_back, color: Color.fromARGB(255, 255, 255, 255)),
           onPressed: () => context.go('/'),
         ),
         title: Center(
@@ -71,7 +72,8 @@ class MovieScreenState extends State<MovieScreen> {
                 ///////// Image ///////////
                 Image(
                   image: NetworkImage(
-                      "https://image.tmdb.org/t/p/w300" + posts["poster_path"]),
+                    "https://image.tmdb.org/t/p/w300" + posts["poster_path"],
+                  ),
                   height: 300,
                   width: 250,
                 ),
@@ -95,7 +97,7 @@ class MovieScreenState extends State<MovieScreen> {
                     padding: const EdgeInsets.all(20),
                     color: Color.fromARGB(255, 43, 42, 42),
                     child: Text(
-                      posts["overview"],
+                      posts["overview"] ?? 'Pas de résumé disponible',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),

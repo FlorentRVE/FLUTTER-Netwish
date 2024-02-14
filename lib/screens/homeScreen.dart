@@ -13,7 +13,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  String searchTerms = " ";
+  String searchTerms = "a";
+
+  var sortValue = 5.0;
 
   var myController = TextEditingController();
 
@@ -56,7 +58,6 @@ class HomeScreenState extends State<HomeScreen> {
   Future<dynamic> getPosts() async {
     var data = await Api().getMovies(searchTerms);
     var post = jsonDecode(data);
-    print(post);
 
     return post;
   }
@@ -90,18 +91,27 @@ class HomeScreenState extends State<HomeScreen> {
             return Center(child: Text(snapshot.error.toString()));
           } else {
             var posts = snapshot.data[0]["results"];
+
             return Column(
               children: [
-                //////// Popular on NetWish /////////
-                Container(
-                  margin: EdgeInsets.only(top: 20, bottom: 10),
-                  child: Text(
-                    "Catalog",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold),
-                  ),
+                //////// Trie par note /////////
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Trier par note',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Slider(
+                        value: sortValue,
+                        min: 0,
+                        max: 10,
+                        onChanged: (value) {
+                          setState(() {
+                            sortValue = value;
+                          });
+                        }),
+                  ],
                 ),
                 //////// posts /////////
                 Expanded(
@@ -115,15 +125,16 @@ class HomeScreenState extends State<HomeScreen> {
                     scrollDirection: Axis.vertical,
                     children: [
                       for (var i = 0; i < posts.length; i++)
-                        GestureDetector(
-                          onTap: () =>
-                              {context.go('/movie?id=${posts[i]["id"]}')},
-                          child: Post(
-                              note: posts[i]["vote_average"],
-                              postImage: posts[i]["poster_path"] ??
-                                  'https://via.placeholder.com/150',
-                              genre: posts[i]["genre_ids"]),
-                        ),
+                        if (posts[i]["vote_average"] >= sortValue)
+                          GestureDetector(
+                            onTap: () =>
+                                {context.go('/movie?id=${posts[i]["id"]}')},
+                            child: Post(
+                                note: posts[i]["vote_average"],
+                                postImage: posts[i]["poster_path"] ??
+                                    'https://via.placeholder.com/150',
+                                genre: posts[i]["genre_ids"]),
+                          ),
                     ],
                   ),
                 ),

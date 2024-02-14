@@ -93,19 +93,7 @@ class HomeScreenState extends State<HomeScreen> {
           } else if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
           } else {
-            var posts = snapshot.data[0]["results"];
-            // var genres = snapshot.data[1]["genres"];
-
-            // List genreList = [];
-            // for (var i = 0; i < posts.length; i++) {
-            //   for (var j = 0; j < genres.length; j++) {
-            //     if (posts[i]["genre_ids"][j] == genres[j]["id"]) {
-            //       genreList.add(genres[j]["name"]);
-            //     }
-            //   }              
-            // }
-            
-            // print(posts);
+            var posts = snapshot.data[0]["results"];            
             return Column(
               children: [
                 //////// Popular on NetWish /////////
@@ -134,7 +122,6 @@ class HomeScreenState extends State<HomeScreen> {
                         GestureDetector(
                           onTap: () =>
                               {context.go('/movie?id=${posts[i]["id"]}')},
-                              // {context.go('/movie',)},
                           child: Post(
                               note: posts[i]["vote_average"],
                               postImage: posts[i]["poster_path"],

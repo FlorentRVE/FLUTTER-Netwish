@@ -13,8 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-
-  String searchTerms = "a";
+  String searchTerms = "b";
 
   var myController = TextEditingController();
 
@@ -46,14 +45,12 @@ class HomeScreenState extends State<HomeScreen> {
                   searchTerms = myController.text;
                 });
                 Navigator.pop(context);
-                print(searchTerms);
               },
             ),
           ],
         );
       },
     );
-
   }
 
   Future<dynamic> getPosts() async {
@@ -62,8 +59,6 @@ class HomeScreenState extends State<HomeScreen> {
 
     return post;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +88,7 @@ class HomeScreenState extends State<HomeScreen> {
           } else if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
           } else {
-            var posts = snapshot.data[0]["results"];            
+            var posts = snapshot.data[0]["results"];
             return Column(
               children: [
                 //////// Popular on NetWish /////////
@@ -125,8 +120,7 @@ class HomeScreenState extends State<HomeScreen> {
                           child: Post(
                               note: posts[i]["vote_average"],
                               postImage: posts[i]["poster_path"],
-                              genre : posts[i]["genre_ids"]
-                              ),
+                              genre: posts[i]["genre_ids"]),
                         ),
                     ],
                   ),
@@ -143,7 +137,10 @@ class HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Colors.red,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: GestureDetector(
+              onTap: () => searchTerms = " ",
+              child: Icon(Icons.home),
+            ),
             label: 'Home',
           ),
           BottomNavigationBarItem(

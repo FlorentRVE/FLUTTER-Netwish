@@ -29,7 +29,7 @@ class MovieScreenState extends State<MovieScreen> {
       backgroundColor: const Color.fromARGB(255, 37, 36, 36),
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Color.fromARGB(255, 255, 255, 255)),
           onPressed: () => context.go('/'),
         ),
         title: Center(
@@ -78,7 +78,7 @@ class MovieScreenState extends State<MovieScreen> {
                 ///////// bouton ///////////
                 Center(
                   child: Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      margin: EdgeInsets.only(top: 20, bottom: 20),
                       color: Colors.red,
                       height: 50,
                       width: 400,

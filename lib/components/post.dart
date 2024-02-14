@@ -46,7 +46,7 @@ class Post extends StatelessWidget {
                     height: 360,
                     width: 250,
                   ),
-                  // title
+                  // note
                   Container(
                     decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 24, 24, 24)),
@@ -60,12 +60,11 @@ class Post extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // genre
                   Container(
-                    decoration: BoxDecoration(color: const Color.fromARGB(255, 12, 12, 12)),
                     height: 60,
-                    padding: EdgeInsets.all(5),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    padding: EdgeInsets.all(10),
+                    child: Wrap(
                         children: [
                           for (var i = 0; i < genre.length; i++)
                             for (var j = 0; j < genres.length; j++)
@@ -74,7 +73,6 @@ class Post extends StatelessWidget {
                                   genres[j]["name"] + ' ',
                                   style: TextStyle(color: Colors.white),
                                   textAlign: TextAlign.center,
-                                  softWrap: true,
                                 ),
                         ]),
                   ),
